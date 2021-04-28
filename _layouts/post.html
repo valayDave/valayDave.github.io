@@ -12,8 +12,8 @@
             <p>{{ page.description }}</p>
             {% include article/info-footer.html post=page %}
           </header>
-
           <div class="article-content">
+            {% include toc.html html=content %}
             {{ content }}
           </div>
           <div class="article-share">

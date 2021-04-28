@@ -80,5 +80,6 @@ plugins:
   - jekyll-paginate
   - jekyll-sitemap
   - jemoji
+  - jekyll-latex
 paginate_path: /posts/page/:num/
 permalink: posts/:slug
