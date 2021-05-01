@@ -2,7 +2,7 @@
 layout: post
 title: "The Topics I Would Choose If I Ever Did A PhD in AI/ML"
 description: ""
-thumb_image: "documentation/sample-image.jpg"
+thumb_image: ""
 tags: [personal-thoughts, machine-learning]
 ---
 
