@@ -30,14 +30,16 @@ The main inspiration for this blog post comes from the idea that today's AI is v
 
 ## 1. Intelligence as Emergence
 
-Inherently, all fancy machine learning models interpolate within the training data distribution based on some optimization measure. The current day trend based on this is to throw large enough data at a big enough model, then it can potentially interpolate from large enough patterns seen in the data. A lot of people call this fancy names like the [Manifold Hypothesis](https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/). In simplistic terms the ML model finds a _smooth differentiable manifold in the space of data_ for which it can have a mapping in the output space. The optimization helps change this mapping between the manifold and the output space and the model helps define the mapping. The formulation of this manifold and its mapping generally happens based on the learning task and inductive biases possessed by the model. Strategies like self-supervised learning with large enough data help capture a "large size"[^manifoldsize] of this manifold. *This is one of the reasons I think why GPT-3 works so well[^dontcite2]*. [With what attention mechanism](https://jalammar.github.io/illustrated-gpt2/) [is doing](https://www.youtube.com/watch?v=nv6oFDp6rNQ) and what the manifold hypothesis implies, we are only creating a larger boundary for interpolating patterns.
+Inherently, all fancy machine learning models interpolate within the training data distribution based on some optimization measure. The current day trend based on this is to throw lots of data at a big model, so it can potentially interpolate from large enough patterns seen in the data. A lot of people call this fancy names like the [Manifold Hypothesis](https://colah.github.io/posts/2014-03-NN-Manifolds-Topology/)[^dontcite2]. In simplistic terms the ML model finds a _smooth differentiable manifold in the space of data_ for which it can have a mapping in the output space. The optimization helps change this mapping between the manifold and the output space and the model helps define the mapping. The formulation of this manifold and its mapping generally happens based on the learning task and inductive biases possessed by the model. Strategies like self-supervised learning with large enough data help capture a "large size"[^manifoldsize] of this manifold. *This is one of the reasons I think why GPT-3 works so well*[^nocite]. [With what attention mechanism](https://jalammar.github.io/illustrated-gpt2/) [is doing](https://www.youtube.com/watch?v=nv6oFDp6rNQ) and what the manifold hypothesis implies, we are only creating a larger boundary to the manifold for interpolating patterns.
 
-A [recent paper from Don Begio's group](https://arxiv.org/pdf/1806.01261.pdf) included some latest SOTA techniques in the list of inductive biases incorporated in different architectural patterns. Below is a table summarizing that :
+A [recent paper](https://arxiv.org/abs/2011.15091) from Don[^whydon] Bengio's group included some latest SOTA techniques in the list of inductive biases incorporated in different architectural patterns. Below is a table summarizing that :
 {% include image.html path="inductive-biases.png"
                       width="100%"
                       path-detail="inductive-biases.png"
                       alt="OODG Stats" %}
-
+<div style="text-align:center;font-size:16px">
+    <i><a target='_blank' href="https://arxiv.org/abs/2011.15091">Table from "Inductive Biases for Deep Learning of Higher-Level Cognition"</a></i>
+</div>
 Attention is king at the current moment (May 2021) based on its popularity in the research community and its performance in various state-of-the-art tasks. Many researchers are actually saying GPT-3 like models can be "intelligent". I don't buy this. GPT-3 like tech makes one hell of a parser which can put many people out of jobs, but it's not the way to reach a "General Purpose Machine"/AI. 
 
 In my opinion we may not be _able interpolate our way out_ of complex problems. Example, In medical diagnoses, If an ML model classifies a diagnosis based on symptoms then how does it account for a totally unknown variables which can account for completely different diagnosis ? How would it account for such information it doesn't know when calibrating its responses ? How would such a "model explain to us it's prediction in the way we understand" [^explaination] ?  We possess many such aspects to intelligence like [causal reasoning](https://www.youtube.com/watch?v=mfh4fp_8oPg) or [abstractions/analogizing](https://arxiv.org/abs/2102.10717), or [common sense or intuitive physics](https://www.youtube.com/watch?v=llYCXO9Ajj0) (to name a few[^intell-aspects]) that help us tackle such problems. Many of these traits are harder to incorporate well intrinsically. Why ? Because some of these aspects need [an interplay of tacit and explicit knowledge which is never readily *datasetable*.](https://www.youtube.com/watch?v=L1zjQBImx44)
@@ -49,16 +51,39 @@ Since I have been following this space, I have become am a huge an of thought di
 If I were to work on problems in AI for five years, I would consider this thought direction to influence which problems I select.
 ## 2. How do we define utility ? Features are not bugs.
 
+<table>
+<tr>
+<td style='width:60%'>
 {% include image.html path="rl-papers-stats.png"
                       width="100%"
                       path-detail="rl-papers-stats.png"
                       alt="RL Paper Publishing trends Stats" %}
 <div style="text-align:center;font-size:16px">
-    <i>Plot of number of papers in published on RL in ArXiv. Plot taken from "reinforcement learning" as a search query on <a href="https://sci-genie.com">Sci-Genie.</a></i>
+<p>
+    <i>Plot of number of papers in published on RL in ArXiv.</i>
+    <br/>
+    <i>Plot taken from "reinforcement learning" as a search query on <a href="https://sci-genie.com">Sci-Genie.</a></i>
+</p>
+<!-- <p>
+</p> -->
 </div>
 
+</td>
+<td style='width:40%'>
+{% include image.html path="rl-meme.jpeg"
+                      width="100%"
+                      path-detail="rl-meme.jpeg"
+                      alt="RL Paper Publishing trends Stats" %}
+<div style="text-align:center;font-size:16px">
+    <i>What I feel when I do RL</i>
+</div>
 
-The above is plot of the number of papers published on ArXiv every month on Reinforcement Learning. Ever since AlphaGo the number of people who have been publishing in RL is has grown and there are just so many algorithms with so many variations based on the way we frame problems. The biggest trick that the RL community ever played was the sleek footnote on the bottom of every paper _assuming a well-behaved reward function $$r(s,a)$$._
+</td>
+</tr>
+</table>
+
+
+The above is plot of the number of papers published on ArXiv every month on Reinforcement Learning. Ever since AlphaGo the number of people who have been publishing in RL is has grown and there are just so many algorithms with so many variations based on the way we frame problems. **The biggest trick that the RL community ever played was the sleek footnote on the bottom of every paper _assuming a well-behaved reward function $$r(s,a)$$._**
 
 <div style='align:center'>
 $$
@@ -80,7 +105,7 @@ $$p_\theta : \text{Probability of seeing trajectory } \tau\ \text{using policy}\
 
 _Sure, to make my robot move around and get me coffee, all I need to do is find this **magic function that helps me get the desired behavior**, OR I'll just give it a few years to hit/trial on sparse rewards and pray for it to work after that._
 
-What ever people may say there are [countless proofs](https://media.neurips.cc/Conferences/NIPS2018/Slides/jpineau-NeurIPS-dec18-fb.pdf) in the [brittleness](https://arxiv.org/abs/1709.06560) and [variance in RL](https://arxiv.org/abs/2005.12729) due to parametric sensitivity creating reproducibility issue. In my opinion, RL is an amazing framework but we need a better way to understand hyper-non-convex rewards functions and understand the causal effects of utilities much deeper.
+What ever people may say there are [countless proofs](https://media.neurips.cc/Conferences/NIPS2018/Slides/jpineau-NeurIPS-dec18-fb.pdf) in the [brittleness](https://arxiv.org/abs/1709.06560) and [variance in RL](https://arxiv.org/abs/2005.12729) due to parametric sensitivity creating reproducibility issue. In my opinion, RL is an amazing framework but we need a better way to understand hyper-non-convex reward/utility functions and understand the causal effects of utilities much deeper.
 
 A famous though experiment on the nature of utilities is the [paper clip experiment](https://en.wikipedia.org/wiki/Instrumental_convergence#Paperclip_maximizer).
 
@@ -113,9 +138,9 @@ Ideally, if a classifier that is just seeing cats and dogs, classifies a lion or
 
 The wonderful thing about [DALL-E](https://openai.com/blog/dall-e/) is that it kinda shows you can encapsulate the abstract space of concepts of language and vision onto one giant codebook. To make an armchair the shape of an avocado, you need a model which can hold a latent space which call allows interpolating between the visual-linguistic "concepts" of an avocado and an armchair. I would even speculate this as a way to interpolate over the space of *discretized "abstractions"*. 
 
-We as humans excel at discovering and organizing under abstractions to function efficiently. Examples can range from how we create organizations and assign roles based on responsibilities to when we write and refactor code to make it re-useable. Hell, we created entire sectors of industries based on how we organized the abstractions in the [OSI network stack](https://en.wikipedia.org/wiki/OSI_model).
+We as humans excel at discovering and organizing under abstractions to function efficiently. Examples can range from how we create organizations and assign roles based on responsibilities *to* when we write and refactor code for making it re-useable. Hell, we created entire sectors of industries based on how we organized the abstractions in the [OSI network stack](https://en.wikipedia.org/wiki/OSI_model).
 
-Yuval Noah Harari's thesis is that our ability to communicate and organize around the abstractions we believe has made us evolve into the "intelligent" species we are. He refers to the abstractions as "fictions" we tell/believe. I feel that if machines can discover many "useful" abstractions present in our data (text, vision, code etc.) then we can use these machines for discovering so many things.
+[Yuval Noah Harari's thesis](https://www.ynharari.com/book/sapiens-2/) is that our ability to communicate and organize around the abstractions we believe has made us evolve into the "intelligent" species we are. He refers to the abstractions as "fictions" we tell/believe. I feel that if machines can discover many "useful" abstractions present in our data (text, vision, code etc.) then we can use these machines for discovering so many things. A simple example: a lot of living beings have ears and eyes. An ear is an abstraction we humans categorized for making our lives easier when we communicate with each other. Abstractions occur in data all the time and we as humans excel at discovering and using them for communication/application but our AI tools still don't hold such capabilities. 
 
 ### Hierarchy as Means For Reasoning
 
@@ -126,7 +151,7 @@ Abstractions also possess hierarchy and we humans use a lot of such hierarchical
 Abstractions provide a reference frames for improvements or fixes. Let me give an example. Git, as a technology was created so that we can healthily experiment by building and changing abstractions while creating software. We can also use Git to find bugs introduced in the code. If abstractions are not working, Git provides a systematic way to reason about what changed to identify the source of a bug[^gitreason].
 
 Git like tools allow using abstractions as means for creating reference frames (versions) for understanding causality[^gitreason] while making healthy improvements in a *distributed*[^gitdist] way. If we can such incorporate capabilities into machines which leverage Git-like constructs over a long period of time to improve themselves then we are in for a treat with the implications of such systems. Many would now be think: _Sure bro!, But what the f$$**$$k are you making improvements of i.e. what utility am I optimizing for._ This is something even I can't answer too but hey, If I had 5 years to work on problems or think on ideas, this is a direction of thought I would surely explore. 
-## 5. Finding a ImageNet moment[^imgnetmom] in learning non-stationary dynamics for MARL
+## 5. Finding a ImageNet moment in learning non-stationary dynamics for MARL
 
 Every time we use RL it is assumed with Markovian dynamics that [take into account a **stationary** environment](https://ai.stackexchange.com/questions/7640/what-does-stationary-mean-in-the-context-of-reinforcement-learning). **What it means is that the transition function ( $$\mathcal{P}(s_{t+1} \mid s_t,a_t)$$ ) and reward function $$r(s_t,a_t)$$ will be unchanged.** Let's break this down. If you put few robots learning concurrently in an environment, then the action taken by one agent affects the reward of other opponent agents, and the evolution of the state. Such a setting [_induces a non-stationary_ environment for the individual agent](https://arxiv.org/pdf/1911.10635.pdf). This is a becomes a problem as we have more agent learning at the same time. Adding to the complexity, interaction between agents may be of different types. Interactions may be strategic/competitive or collaborative. This can lead to complex optimization formulations of an individual agent $$i$$'s objective function $$J^i$$[^objective] as:
 
@@ -150,11 +175,11 @@ $$ R : \text{ Reward function also considering other agent's state}$$
 </table>
 If we want robots and AI's integrated in society to help humanity, we need ways to train many of them at the same time. With complex formulations like the one above there are equilibrium conditions for the optimization like a Markov Nash Equilibrium[^MNE] ( $$J^{i}\left[y,\pi^{i},\pi^{-i}\right]\geq\,J^{i}\left[y,\pi^{\prime i},\pi^{-i}\right]$$ ). But reaching this with growth in number of agents and nuances of scenarios makes the optimization even harder!
 
-We also need ways robots can learn and derive cue's from human interaction. This direction of research has very powerful future implications which allows us to go to Mars and plant colonies using robot armies. Check out [this paper](https://arxiv.org/pdf/1707.09183.pdf) if such a problem interests you. I would certainly entertain this direction of thought if I could spend time on open problems in ML/AI. 
+We also need ways robots can learn and derive cue's from human interaction. These direction of research involving dynamics of multiple different agents has very powerful future implications. Cracking such problems allows us to go to Mars and plant colonies using robot armies. Check out [this paper](https://arxiv.org/pdf/1707.09183.pdf) if such a problem interests you. I would certainly entertain this direction of thought if I could spend time on open problems in ML/AI. 
 
-## 6. Causal reasoning : Secret Sauce of S/W Developer's Debugging Superpowers.  
+## 6. Causal reasoning : Secret Sauce of a Software Developer's Debugging Superpowers.  
 
-There is very famous problem in computer science called the [Halting Problem](https://en.wikipedia.org/wiki/Halting_problem). The premise of the halting problem is simple, crudely: *Given a computer program, can another computer program predict if the given computer program will finish running ?* Short answer, We can't predict that. This problem is an [Undecidable problem](https://en.wikipedia.org/wiki/Undecidable_problem). An undecidable problem is a decision problem for which it's not possible to construct an algorithm that will always lead to a correct yes-or-no answer. This is quite fascinating problem because it implies that we can't ever know *ALL INPUT values* that would lead to *any arbitrary program* to keep running infinitely or stop!
+There is very famous problem in computer science called the [Halting Problem](https://en.wikipedia.org/wiki/Halting_problem). The premise of the halting problem is simple, crudely: *Given a computer program, can another computer program predict if the given computer program will finish running ?* Short answer, We can't predict that. This problem is an [Undecidable problem](https://en.wikipedia.org/wiki/Undecidable_problem). An undecidable problem is a decision problem for which it's not possible to construct an algorithm that will always lead to a correct yes-or-no answer. This is a quite fascinating problem because it implies that we can't ever know *ALL INPUT values* that would lead to *any arbitrary program* to keep running infinitely or stop!
 
 Even though we may never know an exact answer about the finishing of a program, we do a decent job at reasoning about how they work and why they fail *for manageable sizes of programs*. But as program/project sizes grow, there is direct correlation to the amount of cognitive effort needed by a single dev to understand the code. If the size the program is larger than 10K LOC the number of hours a *single dev* would need to read and understand a **undocument project** grows exponentially.[^dontcite]. This becomes a real problem in the industry when the number of projects or complexity of projects grows. 
 
@@ -185,20 +210,23 @@ Even though we may never know an exact answer about the finishing of a program, 
 </tr>
 </table>
 
-Software companies around the world have projects which are never perfect. Many projects may not be best documented. Many projects have information about aspects stuck in minds of developers. So many projects may have version control that is not well done. The amount of complexity of a real world S/W project is super high and the only asset that can help tackle these problems are human developers who have the ability to understand and reason over the functioning of source code (The performance of those tasks may vary based on the developer). Even if projects are documented, really large projects have isolation of responsibility and scope for departments running a product/project. Many times when sizes of projects grow the disconnect between teams may lead to issues in functioning, availability or security vulnerabilities. 
+Software companies around the world have projects which are never perfect. Many projects may not be best documented. Many projects have information about aspects stuck in minds of developers. So many projects may have version control that is not well done. **The amount of complexity of a real world S/W project is super high and the only asset that can help tackle these problems are human developers who have the ability to understand and reason over the functioning of source code** (The performance of those tasks may vary based on the developer). Even if projects are documented, really large projects have isolation of responsibility/scope for departments running the project. Many times when sizes of projects grow the disconnect between teams may lead to issues in functioning, availability or security vulnerabilities. 
  
-The main point to highlight is that bigger the systems we build, we also need to maintain them and change them. We currently use a lot of special purpose tools and test cases to make our systems work and reason about their functioning. One of the key abilities that helps us do this well enough, is about ability to predict the causality of events when we read/write code and *observe* software systems. Simplistic example: *Debugging is the art of causal reasoning in practice*. To TRULY ever reach a GPT, we need it to possess intrinsic capabilities which allow it to infer some degree of causality of events from the information it generates (code/system patches etc.) !. 
+The main point to highlight is that bigger the systems we build, we also need to maintain them and change them. We currently use a lot of special purpose tools and test cases to make our systems work and reason about their functioning. One of the key abilities that helps us do this well enough, is about ability to predict the causality of events when we read/write code and *observe* software systems. More elegantly stated, **Debugging is the art of causal reasoning in practice**. To TRULY ever reach a GPT, we need it to possess intrinsic capabilities which allow it to infer some degree of causality of events from the information it generates (code/system patches etc.) !. 
 
-OpenAI's GPT-3, for however impressive it seems, it is just a fancy interpolator in the space of linguistic patterns. To truly test the validity of useful *General Purpose Technology*, an AI vs Human [CTF](https://dev.to/atan/what-is-ctf-and-how-to-get-started-3f04) would help make huge leaps. One of the best things about CTF's is that they require creativity, deep understanding of software and sound on the fly strategic decision-making capabilities. [Few years ago DARPA had a grad challenge which included a human designed AI vs AI CTF which the professors from my grad school won.](http://www.phrack.org/papers/cyber_grand_shellphish.html)[^asusec]. 
+### Human Vs AI CTF : The Utlimate Turing Test
+OpenAI's GPT-3, for however impressive it seems, is just a fancy interpolator in the space of linguistic patterns. To truly test the validity of useful *General Purpose Technology*, an AI vs Human [CTF](https://dev.to/atan/what-is-ctf-and-how-to-get-started-3f04) would help make huge leaps. One of the best things about CTF's is that they require creativity, deep understanding of software and sound on the fly strategic decision-making capabilities. [Few years ago DARPA had a grad challenge which included a human designed AI vs AI CTF which the professors from my grad school won.](http://www.phrack.org/papers/cyber_grand_shellphish.html)[^asusec]. 
 
-The grand challenge was quite impressive, but we can take it up a notch. An AI winning a human vs AI CTF would be the next ImageNet moment[^imgnetmom] in the field of causal reasoning for software systems. When Open AI beat humans at Dota-2, it was a very great leap to show how extremely stochastic and partially observable multi-agent problems can also have some *good enough solution* with neural networks in principle. If we want a truly exponential leap, we need AI's beating humans in CTF's. The other thing is that the CTF's also need to evolve to ensure hard-enough problems to pit humans vs AI and so that the AI solutions developed are not P-hacked!
+The grand challenge was quite impressive, but we can take it up a notch. An AI winning a human vs AI CTF would be the next ImageNet moment[^imgnetmom] in the field of causal reasoning for software systems. When OpenAI beat humans at Dota-2, it was a very great leap to show how extremely stochastic and partially observable multi-agent problems can also have some *good enough solution* with neural networks in principle. If we want a truly exponential leap, we need AI's beating humans in CTF's. What this means that one team deploy's their AI solution and the human teams play against this AI counterpart in the CTF. The team representing the AI don't get to change it during the game and AI has to discover the rules of the game during the game. 
+
+The other thing is that the CTF's also need to evolve to ensure hard-enough problems and so that the AI solutions developed are not P-hacked[^arorapaper]!
 
 Discovering ideas on how make such a competition would require a lot of time and thought. A PhD would be the most perfect time to invest in bringing to life such a competition. 
 # Conclusions
-All the ideas listed here are few broad directions of research and schools of thought which excite me if I ever do a PhD. AI has become such a hype over the past 5-7 years and so many people are writing papers these days. We don't know when we will reach a truly general purpose machine but the problems we need to solve only need to be *solved once*. The other aspect is that there are very few avenues aside academia where such deep problems can be given any time to think and discuss. I also think that many questions/thoughts addressed here require more than just 5/7 years one spends in a PhD but hey, If we ever want such big ideas like GPT we should aspire to find the right questions or schools of thought that help us get there!
+All the ideas listed here are few broad directions of research and schools of thought which excite me if I ever do a PhD. AI has become such a hype over the past 5-7 years and so many people are writing papers these days. We don't know when we will reach a truly general purpose machine but the problems we need to solve only need to be *solved once*. The other aspect is that there are very few avenues aside academia where such deep problems can be given any time to think and discuss. I also think that many questions/thoughts addressed here require more than just 5/7 years one spends in a PhD but hey, If we ever want such big ideas like **GPT** we should aspire to find the right questions or schools of thought that help us get there!
 
 ## Post Script
-If you enjoyed reading about ideas on this blog and want to discuss more, don't be shy in reaching out! I would love discussing more about what I have written :) 
+If you enjoyed reading about ideas on this blog and want to discuss more or correct me, then don't be shy to reach out! I would love discussing more or correcting my understanding on such topics :)
 
 # Foot Notes
 
@@ -227,3 +255,9 @@ If you enjoyed reading about ideas on this blog and want to discuss more, don't 
 [^sci-genie]: Sci-Genie is a search engine over CS ArXiv. I recently built it for getting a better grasp of what people are writing about and what directions of research are worth exploring. 
 
 [^intell-aspects]: There here are many more aspects like [Social Organization](https://en.wikipedia.org/wiki/Social_organization#:~:text=In%20sociology%2C%20a%20social%20organization,communication%20systems%2C%20and%20so%20on.), [Evolution](https://en.wikipedia.org/wiki/Evolution) which obviously were important for the development of intelligence. It would require a blog to just discuss those. 
+
+[^arorapaper]: Testing AI systems should require harder problems. To have better systems, we need continuously evolve the hardness of the problems tackled by the systems so that we don't get stuck in local minima, and we don't end up P-hacking. Dr. Arora recently wrote a paper proposing [A Simple Estimate of Overfit to Test Data](https://arxiv.org/pdf/2102.13189v1.pdf). Very interesting stuff! 
+
+[^nocite]: Don't Cite Me On That
+
+[^whydon]: The Godfather's of Deep Learnings are The Don's of The AI Mafia. 
