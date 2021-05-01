@@ -3,7 +3,7 @@
 blog_theme: light # Or use dark
 name: The Turing Bot
 paginate: 25
-url: http://valaydave.github.io
+url: https://valaydave.github.io
 
 
 # Optional settings
